@@ -1,40 +1,77 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
         <MyInfoComponent />
       </header>
     </div>
   );
 }
 
-function MyInfoComponent() {
-  const myName = "Robert";
-  const current_year = 2022
+const MyInfoComponent = () => {
+  const [name, setName] = useState("");
+  const [color, setColor] = useState("");
+  const [moviesArr, setMoviesArr] = useState(["", "", ""]);
 
-  const course = 'web dev'
   return (
     <div>
-      <h1>{myName}</h1>
-      <p>graduating: {current_year +1}</p>
-      <p>course: {course}</p>
+      <p>My favorite name is {name}</p>
+      <input
+        type="text"
+        placeholder="Name"
+        onChange={(event) => {
+          const value = event.target.value;
+          setName(value);
+        }}
+      ></input>
+      <p style={{ backgroundColor: color }}>My favorite color is {color}</p>
+      <input
+        type="text"
+        placeholder="Color"
+        onChange={(event) => {
+          const value = event.target.value;
+          setColor(value);
+        }}
+      ></input>
+      <p>My favorite movies are :</p>
+      <input
+        type="text"
+        placeholder="1st Favorite Movie"
+        onChange={(event) => {
+          const value = event.target.value;
+          setMoviesArr([value, moviesArr[1], moviesArr[2]]);
+        }}
+      ></input>
+      &nbsp; &nbsp;
+      <input
+        type="text"
+        placeholder="2nd Favorite Movie"
+        onChange={(event) => {
+          const value = event.target.value;
+          setMoviesArr([moviesArr[0], value, moviesArr[2]]);
+        }}
+      ></input>
+      &nbsp; &nbsp;
+      <input
+        type="text"
+        placeholder="3rd Favorite Movie"
+        onChange={(event) => {
+          const value = event.target.value;
+          setMoviesArr([moviesArr[0], moviesArr[1], value]);
+        }}
+      ></input>
+      <ol>
+        {moviesArr.map((movie) => (
+          <li>{movie}</li>
+        ))}
+      </ol>
     </div>
   );
-}
+};
 
 export default App;
